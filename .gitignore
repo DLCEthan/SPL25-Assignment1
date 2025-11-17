@@ -15,3 +15,8 @@
 !/src/
 # Expose all .cpp files within the 'src' directory
 !/src/*.cpp
+# Exposing extra files.
+!/bin/
+!/bin/*.txt
+!/input_2/
+!/input_2/*.txt
