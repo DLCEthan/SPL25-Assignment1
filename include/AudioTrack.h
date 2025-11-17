@@ -18,6 +18,8 @@
  * 
  */
 class AudioTrack {
+private:
+    void checkIfAllocatedAndDelete();
 protected:
     std::string title;
     std::vector<std::string> artists;
