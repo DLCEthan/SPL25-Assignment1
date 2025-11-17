@@ -1,6 +1,17 @@
-# 1. Ignore all files and folders globally
+# --- General Rule: Ignore Everything ---
 *
-# 2. Expose the specific folders
+
+# --- Exceptions: Track only the necessary directories and files ---
+
+# Always track the .gitignore file itself
 !/.gitignore
+
+# Expose the contents of the 'include' directory (The trailing slash is important)
 !/include/
+# Expose all .h files within the 'include' directory
+!/include/*.h
+
+# Expose the contents of the 'src' directory (The trailing slash is important)
 !/src/
+# Expose all .cpp files within the 'src' directory
+!/src/*.cpp
