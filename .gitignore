@@ -1,0 +1,6 @@
+# 1. Ignore all files and folders globally
+*
+# 2. Expose the specific folders
+!/.gitignore
+!/include/
+!/src/
