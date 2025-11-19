@@ -37,22 +37,16 @@ AudioTrack::~AudioTrack() {
     #endif
     // Your code here...
 
-    checkIfAllocatedAndDelete();
-}
-
-void AudioTrack::checkIfAllocatedAndDelete()
-{
-    //if the array is initialized then free the memory it.
     if(waveform_data)
     {
         delete[] waveform_data;
-        waveform_data = nullptr;
     }
+
 }
 
-AudioTrack::AudioTrack(const AudioTrack& other)
-: title(other.title), artists(other.artists), bpm(other.bpm), 
-  waveform_size(other.waveform_size), waveform_data(nullptr)
+AudioTrack::AudioTrack(const AudioTrack& other): title(other.title), artists(other.artists), 
+duration_seconds(other.duration_seconds), bpm(other.bpm), 
+      waveform_size(other.waveform_size)
 {
     // TODO: Implement the copy constructor
     #ifdef DEBUG
@@ -66,32 +60,32 @@ AudioTrack::AudioTrack(const AudioTrack& other)
     {
         waveform_data[i] = other.waveform_data[i];
     }
-
 }
 
-AudioTrack& AudioTrack::operator=(const AudioTrack& other)
- {
+AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
     // TODO: Implement the copy assignment operator
     #ifdef DEBUG
     std::cout << "AudioTrack copy assignment called for: " << other.title << std::endl;
     #endif
     // Your code here...
-    
+
     if(this != &other)
     {
-        title = other.title;    // std::string 's rule of 5 should handle that.
-        artists = other.artists; // std::vector<T>'s rule of 5 should handle that.
-    
-        //simple types
+        title = other.title;
+        artists = other.artists;
         duration_seconds = other.duration_seconds;
         bpm = other.bpm;
         waveform_size = other.waveform_size;
+        
+        if(waveform_data)
+        {
+            delete[] waveform_data;
+        }
 
-        checkIfAllocatedAndDelete();
         waveform_data = new double[waveform_size];
 
         for(int i=0; i< waveform_size; i++)
-        {
+        {   
             waveform_data[i] = other.waveform_data[i];
         }
     }
@@ -99,18 +93,16 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other)
     return *this;
 }
 
-AudioTrack::AudioTrack(AudioTrack&& other) noexcept 
-: title(other.title), artists(other.artists), bpm(other.bpm), 
-  waveform_size(other.waveform_size), waveform_data(other.waveform_data)
-{
+AudioTrack::AudioTrack(AudioTrack&& other) noexcept :
+title(other.title), artists(other.artists), 
+duration_seconds(other.duration_seconds), bpm(other.bpm), 
+      waveform_size(other.waveform_size), waveform_data(other.waveform_data){
     // TODO: Implement the move constructor
     #ifdef DEBUG
     std::cout << "AudioTrack move constructor called for: " << other.title << std::endl;
     #endif
     // Your code here...
-
     other.waveform_data = nullptr;
-    other.artists.clear();
 }
 
 AudioTrack& AudioTrack::operator=(AudioTrack&& other) noexcept {
@@ -123,14 +115,17 @@ AudioTrack& AudioTrack::operator=(AudioTrack&& other) noexcept {
 
     if(this != &other)
     {
-        title = other.title;    // std::string 's rule of 5 should handle that.
-        artists = other.artists; // std::vector<T>'s rule of 5 should handle that.
-        other.artists.clear();
-        //simple types
+        title = other.title;
+        artists = other.artists;
         duration_seconds = other.duration_seconds;
         bpm = other.bpm;
         waveform_size = other.waveform_size;
-        //array pointer
+        
+        if(waveform_data)
+        {
+            delete[] waveform_data;
+        }
+
         waveform_data = other.waveform_data;
         other.waveform_data = nullptr;
     }

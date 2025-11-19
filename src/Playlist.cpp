@@ -6,13 +6,6 @@ Playlist::Playlist(const std::string& name)
     : head(nullptr), playlist_name(name), track_count(0) {
     std::cout << "Created playlist: " << name << std::endl;
 }
-
-void deleteNode(PlaylistNode* NodeToDelete)
-{
-        delete NodeToDelete->track;
-        delete NodeToDelete;
-}
-
 // TODO: Fix memory leaks!
 // Students must fix this in Phase 1
 Playlist::~Playlist() {
@@ -20,15 +13,16 @@ Playlist::~Playlist() {
     std::cout << "Destroying playlist: " << playlist_name << std::endl;
     #endif
 
-    PlaylistNode* nodeToRemove = nullptr;
-    
-    while(head)
-    {
-        nodeToRemove = head;
+    PlaylistNode* toDelete = nullptr;
+
+    while (head) {
+        toDelete = head;
         head = head->next;
 
-        deleteNode(nodeToRemove);
+        delete toDelete;
     }
+
+    head = nullptr;
 }
 
 void Playlist::add_track(AudioTrack* track) {
@@ -66,8 +60,8 @@ void Playlist::remove_track(const std::string& title) {
         } else {
             head = current->next;
         }
-
-        deleteNode(current);
+        
+        delete current;
         track_count--;
         std::cout << "Removed '" << title << "' from playlist" << std::endl;
 
