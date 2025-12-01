@@ -19,6 +19,7 @@ Playlist::~Playlist() {
         toDelete = head;
         head = head->next;
 
+        delete toDelete->track;
         delete toDelete;
     }
 
@@ -61,6 +62,7 @@ void Playlist::remove_track(const std::string& title) {
             head = current->next;
         }
         
+        delete current->track;
         delete current;
         track_count--;
         std::cout << "Removed '" << title << "' from playlist" << std::endl;

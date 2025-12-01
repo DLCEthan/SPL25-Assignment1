@@ -37,7 +37,8 @@ public:
      * Think about ownership and resource management.
      * Is the default destructor sufficient here?
      */
-    ~PointerWrapper() {
+    ~PointerWrapper() 
+    {
         if(ptr)
         {
             delete ptr;
@@ -65,7 +66,8 @@ public:
      * HINT: How should ownership transfer from one wrapper to another?
      * What should happen to the source wrapper after the move?
      */
-    PointerWrapper(PointerWrapper&& other) noexcept: ptr(other.ptr) {
+    PointerWrapper(PointerWrapper&& other) noexcept :ptr(other.ptr)
+    {
         other.ptr = nullptr;
     }
 
@@ -75,26 +77,31 @@ public:
      * Don't forget about self-assignment!
      */
     PointerWrapper& operator=(PointerWrapper&& other) noexcept {
-        if(this != & other)
+        if(this != &other)
         {
             ptr = other.ptr;
             other.ptr = nullptr;
         }
+
         return *this;
     }
 
     // ========== ACCESS OPERATIONS ==========
 
-   /**
+    /**
      * TODO: Implement dereference operator
      * HINT: How do you access the object that the wrapper points to? Is this operation implementation complete?
      * @throws std::runtime_error if ptr is null
      */
 
     T& operator*() const {
-        if(!ptr) throw std::runtime_error("[ERROR] Attempting to dereference null pointer.");
+        if(!ptr) 
+        {
+            throw std::runtime_error("[ERROR] Attemptuing to dereference null pointer ");
+        }
+
         return *ptr;
-    }; 
+    };
 
     /**
      * TODO: Implement arrow operator
@@ -102,12 +109,13 @@ public:
      * What safety checks should you perform?
      */
     T* operator->() const {
-        if(!ptr) throw std::runtime_error("[ERROR] Attempting to access null pointer.");
+        if(!ptr)
+        {
+            throw std::runtime_error("[ERROR] Attemptuing to access null pointer ");
+        }
 
         return ptr;
     }
-        
-           
 
     /**
      * TODO: Implement get() function
@@ -116,10 +124,11 @@ public:
      * @throws std::runtime_error if ptr is null
      */
     T* get() const {
-        if(!ptr){
-            throw std::runtime_error("[ERROR] Attempt to retrieve raw pinter from empty wrapper");
+        if(!ptr)
+        {
+            throw std::runtime_error("[ERROR] Attemptuing to get raw null pointer ");
         }
-        return ptr; // Placeholder
+        return ptr; // Placeholder (?)
     }
 
     // ========== OWNERSHIP MANAGEMENT ==========
@@ -160,7 +169,7 @@ public:
     explicit operator bool() const {
         return ptr != nullptr; //placeholder
     }
-
+    
     /**
      * Swap two PointerWrapper objects
      * This is implemented for you as a reference
