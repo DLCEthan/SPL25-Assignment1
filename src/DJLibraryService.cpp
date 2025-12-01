@@ -9,6 +9,7 @@
 
 DJLibraryService::DJLibraryService(const Playlist& playlist) 
     : playlist(playlist), library() {}
+<<<<<<< HEAD
 
 DJLibraryService::~DJLibraryService()
 {
@@ -19,6 +20,8 @@ DJLibraryService::~DJLibraryService()
     }
 }
 
+=======
+>>>>>>> upstream/main
 /**
  * @brief Load a playlist from track indices referencing the library
  * @param library_tracks Vector of track info from config
