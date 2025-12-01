@@ -14,13 +14,8 @@
 class DJLibraryService {
 public:
     DJLibraryService(const Playlist& playlist);
-<<<<<<< HEAD
     DJLibraryService(): playlist(), library() {}
     ~DJLibraryService();
-=======
-    DJLibraryService(): playlist(), library(){}
-
->>>>>>> upstream/main
     /**
      * @brief Build the track library from parsed config data
      * @param library_tracks Vector of track info from config
