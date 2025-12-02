@@ -90,7 +90,8 @@ AudioTrack& AudioTrack::operator=(const AudioTrack& other) {
 AudioTrack::AudioTrack(AudioTrack&& other) noexcept :
 title(other.title), artists(other.artists), 
 duration_seconds(other.duration_seconds), bpm(other.bpm), 
-      waveform_size(other.waveform_size), waveform_data(other.waveform_data){
+      waveform_data(other.waveform_data),
+      waveform_size(other.waveform_size){
     // TODO: Implement the move constructor
     #ifdef DEBUG
     std::cout << "AudioTrack move constructor called for: " << other.title << std::endl;

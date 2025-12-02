@@ -14,6 +14,7 @@ int DJControllerService::loadTrackToCache(AudioTrack& track) {
     if(cache.contains(track.get_title()))
     {
         cache.get(track.get_title());
+        displayCacheStatus();
         return 1;
     }
     //MISS CASE
@@ -21,7 +22,7 @@ int DJControllerService::loadTrackToCache(AudioTrack& track) {
     PointerWrapper<AudioTrack> clonedTrack = track.clone();
     if(!clonedTrack)
     {
-        std::cout <<"[ERROR] Track: "<< track.get_title() << "failed to clone" << std::endl;
+        std::cout <<"[ERROR] Track: "<< track.get_title() << " failed to clone" << std::endl;
         return 0;
     }
 
@@ -29,7 +30,7 @@ int DJControllerService::loadTrackToCache(AudioTrack& track) {
     clonedTrack->analyze_beatgrid();
 
     bool evicted = cache.put(std::move(clonedTrack));
-
+    displayCacheStatus();
     return evicted? -1 : 0; // Placeholder
 }
 

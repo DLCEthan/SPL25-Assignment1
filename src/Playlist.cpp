@@ -26,6 +26,32 @@ Playlist::~Playlist() {
     head = nullptr;
 }
 
+Playlist::Playlist(const Playlist& other) :head(nullptr), playlist_name(other.playlist_name), track_count(other.track_count)
+{
+    PlaylistNode* trackToAdd = other.head;
+
+    while(trackToAdd)
+    {
+        add_track((trackToAdd->track->clone()).release());
+        trackToAdd = trackToAdd->next;
+    }
+}
+
+Playlist& Playlist::operator=(const Playlist& other)
+{
+    playlist_name = other.playlist_name;
+    track_count = other.track_count;
+    PlaylistNode* trackToAdd = other.head;
+
+    while(trackToAdd)
+    {
+        add_track((trackToAdd->track->clone()).release());
+        trackToAdd = trackToAdd->next;
+    }
+
+    return *this;
+}
+
 void Playlist::add_track(AudioTrack* track) {
     if (!track) {
         std::cout << "[Error] Cannot add null track to playlist" << std::endl;
